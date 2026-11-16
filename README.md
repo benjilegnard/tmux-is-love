@@ -62,6 +62,47 @@ De l'utilisation de base aux plugins avancé, tour d'horizon rapide des fonction
 - alternatives anciennes et modernes (screen, zellij...)
 
 
+## Présenter
+
+Les slides sont dans `public/tmux-is-love.md`, au format [presenterm](https://github.com/mfontanini/presenterm) (version 0.16.1 lors de la rédaction).
+
+### Sans notes
+
+```sh
+presenterm public/tmux-is-love.md
+```
+
+### Avec les notes de présentation
+
+Les notes sont dans des commentaires `<!-- speaker_note: ... -->` : elles ne sont pas affichées sur les slides.
+
+Ouvrir deux terminaux (par exemple deux fenêtres tmux) :
+
+```sh
+# Terminal 1 : la présentation, sur l'écran partagé
+presenterm --publish-speaker-notes public/tmux-is-love.md
+
+# Terminal 2 : les notes, sur votre écran
+presenterm --listen-speaker-notes public/tmux-is-love.md
+```
+
+La navigation se fait dans le terminal 1, le terminal 2 suit automatiquement.
+
+### Navigation
+
+- slide suivante : `l`, `→`, `espace` ou `PageDown`
+- slide précédente : `h`, `←` ou `PageUp`
+- première / dernière slide : `gg` / `G`
+- aller à la slide N : `N` puis `G`
+- quitter : `Ctrl-c`
+
+### Vérifier le rendu
+
+```sh
+# détecte les slides qui dépassent de l'écran
+presenterm --validate-overflows public/tmux-is-love.md
+```
+
 ## Sources
 
 - Doc officielle / projet github : <https://github.com/tmux/tmux/wiki>
