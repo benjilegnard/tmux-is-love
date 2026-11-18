@@ -9,29 +9,36 @@ theme:
         background: 11111b
 options:
   implicit_slide_ends: true
-  end_slides_shorthand: true
+    #end_slide_shorthand: true
 ---
 
 <!-- jump_to_middle -->
 
 # Intro
 
+<!-- incremental_lists: true -->
+- "Laisser son laptop entrouvert" pour le dev agentique.
+- Il nous faut de nouvelles UI pour l'agentique !
+- Alors que TMUX existe 🤷
 <!-- speaker_note: |
-  - PRÉPARATION (avant de monter sur scène) :
-    - écran partagé : `tmux new -s talk -n slides`, puis `presenterm --publish-speaker-notes public/tmux-is-love.md`
-    - écran perso, hors de cette session : `presenterm --listen-speaker-notes public/tmux-is-love.md`
-    - sessions `logs` et `dev` déjà lancées à côté (adapter les noms dans les notes si besoin)
-    - grossir la police du terminal, vérifier que `claude` est connecté
-  - Toute la démo se fait dans cette même session tmux : la présentation EST la démo
+  - Demander à la salle : 
+    - "Qui utilise déjà tmux ici ?"
+    - "Qui utilise déjà le terminal / la ligne de commande"
+    - "Qui n'a jamais utilisé ni l'un ni l'autre?"
+  - Et la version 2026 : le laptop laissé entrouvert toute la nuit pour ne pas tuer la session de l'agent
+  - Placer la chute : "Aujourd'hui, je veux m'assurer que ça ne vous arrive plus jamais."
+  - Annoncer le fil rouge : les bases, comment tout s'intègre et se programme, et pourquoi les agents IA le parlent déjà couramment
 -->
 
-Qui suis-je, et une histoire d'horreur
+Qui suis-je
 ===
-
+<!-- incremental_lists: true -->
+- Benjamin Legrand
+- @benjilegnard
+- utilisateur linux depuis 2008
+- utilisateur tmux depuis 2023
 <!-- speaker_note: |
-  - Saluer, 15 secondes de présentation : nom + rôle
-  - Demander à la salle : "Qui utilise tmux ici ?" / "qui a déjà utilisé le terminal" / "qui jamais ni l'un ni l'autre?"
-  - Raconter l'histoire d'horreur : écran du laptop rabattu en plein déploiement, Wi-Fi coupé pendant une migration de 40 minutes, le Wi-Fi du train qui tue votre `tail -f`
+  - Tech-lead chez onepoint
   - Et la version 2026 : le laptop laissé entrouvert toute la nuit pour ne pas tuer la session de l'agent
   - Placer la chute : "Aujourd'hui, je veux m'assurer que ça ne vous arrive plus jamais."
   - Annoncer le fil rouge : les bases, comment tout s'intègre et se programme, et pourquoi les agents IA le parlent déjà couramment
@@ -41,23 +48,32 @@ Qui suis-je, et une histoire d'horreur
 
 <!-- jump_to_middle -->
 
-# 1. Tmux, c'est quoi ?
+# 1. TMUX, c'est quoi ?
 
+Terminal MUltipleXeur
 <!-- speaker_note: |
-  - Budget : ~4 minutes pour toute la partie
+  - En une phrase : "tmux est un multiplexeur de terminal" (TMUX = Terminal MUltipleXer)
 -->
-
-<!-- end_slide -->
 
 Mais dis-moi Jamy, c'est quoi un multiplexeur ?
 ===
 
+```text
+              ┌─────────────┐
+  entrée 0 ──>│             │
+  entrée 1 ──>│             │
+  entrée 2 ──>│     MUX     ├──> sortie
+  entrée 3 ──>│             │
+              └──────┬──────┘
+                     ^
+```
+
 <!-- speaker_note: |
-  - En une phrase : "tmux est un multiplexeur de terminal" (TMUX = Terminal MUltipleXer)
+  - Le schéma : en électronique, un multiplexeur choisit une entrée parmi plusieurs et l'envoie sur une seule sortie, selon les bits de sélection
   - Traduction pour les humains : un seul terminal contient plusieurs shells, et ces shells survivent à la fermeture du terminal
   - Le point clé : tmux est un serveur. Votre terminal n'est qu'un client qui s'y attache et s'en détache
   - DÉMO, la révélation : "d'ailleurs, ces slides tournent dans tmux"
-    1. `Ctrl-b %` : un shell apparaît à droite des slides
+    1. `Ctrl-b |` : un shell apparaît à droite des slides
     2. taper `echo "coucou depuis tmux"`
     3. `exit` : le pane se ferme, les slides reprennent toute la place
   - Gratuit, open source, présent dans tous les gestionnaires de paquets, fonctionne sur tous les Unix (et WSL)
@@ -114,8 +130,6 @@ serveur tmux
   - Budget : ~8 minutes pour toute la partie
   - Raccourci de survie pendant toute la démo : `Ctrl-b l` revient à la window précédente, donc aux slides
 -->
-
-<!-- end_slide -->
 
 La touche leader : `Ctrl-b`
 ===
@@ -199,8 +213,6 @@ Connexion à distance : détacher, rattacher
 <!-- jump_to_middle -->
 
 # Cas d'usage concrets
-
-<!-- end_slide -->
 
 Consultation de logs
 ===
@@ -289,8 +301,6 @@ Les agents parlent déjà tmux
 
 # Plugins sympas et features avancées
 
-<!-- end_slide -->
-
 Programmez vos sessions
 ===
 
@@ -305,6 +315,7 @@ Programmez vos sessions
 Plugins : tpm et thèmes
 ===
 
+~/.config/tmux/tmux.config
 <!-- speaker_note: |
   - DÉMO :
     1. `Ctrl-b %` puis `nvim ~/.tmux.conf`, aller à la section des `set -g @plugin '...'`
@@ -351,8 +362,6 @@ which-key et apprentissage
   - Fermer les windows de démo si on veut une barre de statut propre, ou les laisser : elles prouvent tout ce qu'on vient de faire
 -->
 
-<!-- end_slide -->
-
 Avantages / inconvénients
 ===
 
@@ -369,6 +378,10 @@ Avantages / inconvénients
 Alternatives anciennes et modernes
 ===
 
+- screen (1987)
+- zellij (Rust 🦀)
+- rex
+- émulateurs de terminal (wezterm, kitty, ghostty)
 <!-- speaker_note: |
   - L'ancien : GNU screen (1987), toujours présent sur les vieux serveurs ; byobu, une surcouche conviviale à screen/tmux
   - Le minimaliste : dtach / abduco, juste le détachement, sans découpage
@@ -380,6 +393,9 @@ Alternatives anciennes et modernes
 Démarrer en 5 minutes
 ===
 
+- `tmux new -s work` : démarrer une session nommée
+- `Ctrl-b d` : se détacher
+- `tmux attach -t work` : revenir
 <!-- speaker_note: |
   - Installation : `apt install tmux`, `brew install tmux`, ou votre gestionnaire de paquets
   - Trois commandes à retenir le premier jour :

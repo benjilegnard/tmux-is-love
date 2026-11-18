@@ -103,6 +103,15 @@ La navigation se fait dans le terminal 1, le terminal 2 suit automatiquement.
 presenterm --validate-overflows public/tmux-is-love.md
 ```
 
+### Préparation (avant de monter sur scène) 
+
+- récupérer le nom de la seconde sortie HDMI (genre `HDMI-A-1`
+  - écran partagé : `tmux new -s talk -n slides`, puis `presenterm --publish-speaker-notes public/tmux-is-love.md`
+  - écran perso, hors de cette session : `presenterm --listen-speaker-notes public/tmux-is-love.md`
+  - sessions `logs` et `dev` déjà lancées à côté (adapter les noms dans les notes si besoin)
+  - grossir la police du terminal, vérifier que `claude` est connecté
+- Toute la démo se fait dans cette même session tmux : la présentation EST la démo
+
 ## Sources
 
 - Doc officielle / projet github : <https://github.com/tmux/tmux/wiki>
