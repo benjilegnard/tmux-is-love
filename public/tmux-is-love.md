@@ -9,29 +9,30 @@ theme:
         background: 11111b
 options:
   implicit_slide_ends: true
-    #end_slide_shorthand: true
+  end_slide_shorthand: true
 ---
-
 <!-- jump_to_middle -->
 
 # Intro
 
 <!-- incremental_lists: true -->
 - "Laisser son laptop entrouvert" pour le dev agentique.
-- Il nous faut de nouvelles UI pour l'agentique !
+- l'IDE est mort
+- Il nous faut de nouvelles UI pour les agents !
 - Alors que TMUX existe 🤷
 <!-- speaker_note: |
   - Demander à la salle : 
     - "Qui utilise déjà tmux ici ?"
     - "Qui utilise déjà le terminal / la ligne de commande"
     - "Qui n'a jamais utilisé ni l'un ni l'autre?"
-  - Et la version 2026 : le laptop laissé entrouvert toute la nuit pour ne pas tuer la session de l'agent
-  - Placer la chute : "Aujourd'hui, je veux m'assurer que ça ne vous arrive plus jamais."
-  - Annoncer le fil rouge : les bases, comment tout s'intègre et se programme, et pourquoi les agents IA le parlent déjà couramment
+  - l'idée de se talk est venu avec le fameux même sur les réseaux sociaux de laisser son laptop laissé entrouvert toute la nuit pour ne pas tuer la session de l'agent
+  - ou que 
+  - on va voir les bases, comment tout s'intègre et se programme, et pourquoi les agents IA le parlent déjà couramment
 -->
 
 Qui suis-je
-===
+==
+<!-- jump_to_middle -->
 <!-- incremental_lists: true -->
 - Benjamin Legrand
 - @benjilegnard
@@ -39,14 +40,13 @@ Qui suis-je
 - utilisateur tmux depuis 2023
 <!-- speaker_note: |
   - Tech-lead chez onepoint
-  - Et la version 2026 : le laptop laissé entrouvert toute la nuit pour ne pas tuer la session de l'agent
-  - Placer la chute : "Aujourd'hui, je veux m'assurer que ça ne vous arrive plus jamais."
-  - Annoncer le fil rouge : les bases, comment tout s'intègre et se programme, et pourquoi les agents IA le parlent déjà couramment
+  - ironiquement je m'y suis mis y a pas longtemps
 -->
 
 <!-- end_slide -->
 
 <!-- jump_to_middle -->
+
 
 # 1. TMUX, c'est quoi ?
 
@@ -57,6 +57,7 @@ Terminal MUltipleXeur
 
 Mais dis-moi Jamy, c'est quoi un multiplexeur ?
 ===
+<!-- jump_to_middle -->
 
 ```text
               ┌─────────────┐
@@ -70,6 +71,7 @@ Mais dis-moi Jamy, c'est quoi un multiplexeur ?
 
 <!-- speaker_note: |
   - Le schéma : en électronique, un multiplexeur choisit une entrée parmi plusieurs et l'envoie sur une seule sortie, selon les bits de sélection
+  - de l'autre côté vous aviez un dé-multiplexeur
   - Traduction pour les humains : un seul terminal contient plusieurs shells, et ces shells survivent à la fermeture du terminal
   - Le point clé : tmux est un serveur. Votre terminal n'est qu'un client qui s'y attache et s'en détache
   - DÉMO, la révélation : "d'ailleurs, ces slides tournent dans tmux"
@@ -81,7 +83,11 @@ Mais dis-moi Jamy, c'est quoi un multiplexeur ?
 
 Histoire du terminal (version ultra-rapide)
 ===
-
+<!-- jump_to_middle -->
+<!-- incremental_lists: true -->
+- téléscripteur (tty)
+- terminaux vidéo (VT100 1978)
+- émulateurs de terminal
 <!-- speaker_note: |
   - Les téléscripteurs (TTY) : un clavier + une imprimante reliés à une machine. D'où le nom `/dev/tty`
   - Les terminaux vidéo, le VT100 (DEC, 1978) : les séquences d'échappement qu'on utilise encore aujourd'hui
@@ -91,7 +97,10 @@ Histoire du terminal (version ultra-rapide)
 
 Histoire de tmux (version ultra-rapide)
 ===
-
+<!-- jump_to_middle -->
+<!-- incremental_lists: true -->
+- L'ancêtre: GNU screen
+- tmux, 2007, Nicholas Marriott, BSD
 <!-- speaker_note: |
   - L'ancêtre : GNU screen, 1987. Toujours là sur beaucoup de serveurs
   - tmux : créé par Nicholas Marriott en 2007, intégré à OpenBSD en 2009, licence BSD
@@ -101,6 +110,7 @@ Histoire de tmux (version ultra-rapide)
 
 Concepts de base : session, window, pane
 ===
+<!-- jump_to_middle -->
 
 ```text
 serveur tmux
@@ -120,19 +130,9 @@ serveur tmux
   - DÉMO : `Ctrl-b w` montre l'arbre réel : les sessions `talk`, `logs` et `dev`, leurs windows et leurs panes, `Échap` pour revenir
 -->
 
-<!-- end_slide -->
-
-<!-- jump_to_middle -->
-
-# 2. Démo live
-
-<!-- speaker_note: |
-  - Budget : ~8 minutes pour toute la partie
-  - Raccourci de survie pendant toute la démo : `Ctrl-b l` revient à la window précédente, donc aux slides
--->
-
 La touche leader : `Ctrl-b`
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - Toutes les commandes tmux commencent par le préfixe, par défaut `Ctrl-b`, puis une touche
@@ -146,6 +146,7 @@ La touche leader : `Ctrl-b`
 
 Navigation : panes, windows, sessions
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - Problème : 14 onglets de terminal répartis sur 3 bureaux. Lequel avait le shell de staging ? Les logs de prod ? Le serveur de dev ?
@@ -166,6 +167,7 @@ Navigation : panes, windows, sessions
 
 Copier-coller sans heurts (et sans souris)
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - DÉMO (dans `demo`, nécessite `set -g mode-keys vi`) :
@@ -179,6 +181,7 @@ Copier-coller sans heurts (et sans souris)
 
 Recherche et heure
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - DÉMO recherche :
@@ -188,8 +191,9 @@ Recherche et heure
   - DÉMO heure : `Ctrl-b t`, la grosse horloge. Totalement inutile, donc indispensable. N'importe quelle touche pour sortir
 -->
 
-Connexion à distance : détacher, rattacher
+Connexion : détacher, rattacher
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - LA fonctionnalité qui tue, la raison pour laquelle les gens tombent amoureux de tmux
@@ -198,6 +202,16 @@ Connexion à distance : détacher, rattacher
     2. `Ctrl-b d` : TOUT disparaît, slides comprises. Laisser un silence
     3. `tmux ls` : la session `talk` est toujours là
     4. `tmux attach -t talk` : les slides reviennent, `top` tourne toujours
+-->
+
+Connexion à distance : détacher, rattacher
+===
+<!-- jump_to_middle -->
+```bash
+ssh serveur -t tmux new -A -s remote
+```
+
+<!-- speaker_note: |
   - DÉMO SSH (si un serveur est accessible, sinon `localhost`) :
     1. `ssh serveur -t tmux new -A -s remote` (`-A` : crée ou rattache)
     2. lancer `ping 1.1.1.1` pour avoir un truc qui tourne
@@ -216,6 +230,7 @@ Connexion à distance : détacher, rattacher
 
 Consultation de logs
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - DÉMO (dans la session `logs` déjà prête) :
@@ -229,7 +244,9 @@ Consultation de logs
 
 Manipulation de panneaux, fenêtres, sessions
 ===
-
+<!-- jump_to_middle -->
+- tmux move-window
+- tmux link-windows
 <!-- speaker_note: |
   - DÉMO (dans `demo`, pas dans `logs` pour ne pas casser sa disposition ; ajouter un pane ou deux avec `Ctrl-b %`) :
     1. `Ctrl-b Espace` plusieurs fois : les dispositions prédéfinies (even-horizontal, main-vertical, tiled...)
@@ -243,7 +260,10 @@ Manipulation de panneaux, fenêtres, sessions
 
 Édition & intégration vim
 ===
-
+<!-- jump_to_middle -->
+```bash
+export EDITOR=nvim
+```
 <!-- speaker_note: |
   - DÉMO (dans `demo`) :
     1. `nvim ~/.tmux.conf` dans le pane de gauche, `:vsplit`
@@ -253,14 +273,27 @@ Manipulation de panneaux, fenêtres, sessions
   - Même principe avec les éditeurs "terminal-first" : nvim, helix, kakoune, emacs -nw
 -->
 
+Apparté : les TUIs
+===
+<!-- jump_to_middle -->
+Terminal User Interface
+
 Sessions et envoi de messages
 ===
+<!-- jump_to_middle -->
 
+```bash
+tmux send-keys -t autre 'echo "envoyé depuis une autre session"'
+```
+```bash
+tmux capture-pane -p -t logs | tail -5
+```
 <!-- speaker_note: |
   - DÉMO (depuis un pane de `demo`, la session `autre` existe déjà) :
     1. `tmux send-keys -t autre 'echo "envoyé depuis une autre session"' Enter`
     2. `Ctrl-b s` vers `autre` pour prouver que la commande a bien été tapée, `Ctrl-b s` pour revenir sur `talk`
-    3. `tmux capture-pane -p -t logs | tail -5` : on lit les derniers logs sans quitter les slides
+    3. `tmux send-keys -t autre 'echo "envoyé depuis une autre session"' Enter`
+ : on lit les derniers logs sans quitter les slides
     4. `tmux display-message "Coucou"` : notifier depuis un script
   - Pair programming : deux personnes s'attachent à la même session, voient le même écran, tapent dans le même shell
   - DÉMO pairing (si un 2e terminal est sous la main) : `tmux attach -t talk` dedans, taper d'un côté, ça s'affiche des deux
@@ -270,6 +303,7 @@ Sessions et envoi de messages
 
 Sub-agents dans tmux avec Claude Code
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - DÉMO :
@@ -283,6 +317,7 @@ Sub-agents dans tmux avec Claude Code
 
 Les agents parlent déjà tmux
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - Vingt ans de doc, de dotfiles et de Stack Overflow : tmux est massivement présent dans les données d'entraînement
@@ -303,7 +338,10 @@ Les agents parlent déjà tmux
 
 Programmez vos sessions
 ===
-
+<!-- jump_to_middle -->
+```
+nvim ~/.config/zsh/functions/dev.zsh
+```
 <!-- speaker_note: |
   - Problème : l'amnésie du contexte chaque matin. cd dans le projet, activer le venv, npm run dev, suivre les logs, ouvrir un shell DB. Encore. Et encore.
   - L'idée : tout ce qu'on a tapé au clavier depuis le début est une commande tmux (`new-session`, `split-window`, `send-keys`...), donc tout se rejoue
@@ -314,6 +352,7 @@ Programmez vos sessions
 
 Plugins : tpm et thèmes
 ===
+<!-- jump_to_middle -->
 
 ~/.config/tmux/tmux.config
 <!-- speaker_note: |
@@ -327,9 +366,12 @@ Plugins : tpm et thèmes
   - Ne pas tout bidouiller dès le premier jour : d'abord prendre ses marques, personnaliser ensuite
 -->
 
-Persistance : tmux-resurrect et tmux-continuum
+Persistance :
 ===
-
+<!-- jump_to_middle -->
+Plugins:
+- tmux-resurrect
+- tmux-continuum
 <!-- speaker_note: |
   - La limite de tmux : le serveur tourne en mémoire, un redémarrage de la machine et tout disparaît
   - DÉMO (NE PAS tuer le serveur, les slides tournent dedans) :
@@ -341,6 +383,7 @@ Persistance : tmux-resurrect et tmux-continuum
 
 which-key et apprentissage
 ===
+<!-- jump_to_middle -->
 
 <!-- speaker_note: |
   - Le frein principal de tmux : se souvenir des raccourcis
@@ -362,26 +405,46 @@ which-key et apprentissage
   - Fermer les windows de démo si on veut une barre de statut propre, ou les laisser : elles prouvent tout ce qu'on vient de faire
 -->
 
-Avantages / inconvénients
+Avantages
 ===
+<!-- jump_to_middle -->
+<!-- incremental_lists: true -->
+- persistence
+- résilience SSH
+- dispositions scriptées
+- pairing
+- tout est commande => programmable
+- les LLMs connaissent déjà
 
 <!-- speaker_note: |
   - Avantages : persistance, résilience SSH, multiplexage, dispositions scriptées, pairing, tout est une commande donc tout se programme, et les agents le maîtrisent déjà
+-->
+
+Inconvénients
+===
+<!-- jump_to_middle -->
+
+<!-- incremental_lists: true -->
+- linux/WSL only
+- courbe d'apprentissage
+- pas de survicance au redémarrage sans plugins.
+<!-- speaker_note: |
   - Inconvénients :
+    - pas de Windows natif (passer par WSL)
     - courbe d'apprentissage et raccourcis peu découvrables
     - le préfixe entre en conflit avec d'autres raccourcis (readline, vim, l'émulateur de terminal)
     - presse-papier et couleurs parfois capricieux (surtout en SSH ou en tmux imbriqué)
-    - pas de Windows natif (passer par WSL)
     - ne survit pas à un redémarrage sans plugin
 -->
 
 Alternatives anciennes et modernes
 ===
+<!-- jump_to_middle -->
 
 - screen (1987)
 - zellij (Rust 🦀)
-- rex
 - émulateurs de terminal (wezterm, kitty, ghostty)
+- rex, herdr
 <!-- speaker_note: |
   - L'ancien : GNU screen (1987), toujours présent sur les vieux serveurs ; byobu, une surcouche conviviale à screen/tmux
   - Le minimaliste : dtach / abduco, juste le détachement, sans découpage
@@ -392,6 +455,7 @@ Alternatives anciennes et modernes
 
 Démarrer en 5 minutes
 ===
+<!-- jump_to_middle -->
 
 - `tmux new -s work` : démarrer une session nommée
 - `Ctrl-b d` : se détacher
@@ -407,13 +471,10 @@ Démarrer en 5 minutes
   - Ou demander à votre agent préféré de vous écrire un `~/.tmux.conf` commenté
 -->
 
-Une ligne de config, un raccourci, et on ne regarde plus en arrière
+Merci !
 ===
+<!-- alignment: center -->
+![image:width:50%](codeurs-en-seine-2026.png)
+Feedback ⬆️
 
-<!-- speaker_note: |
-  - Rappeler la promesse : persistance, résilience, multiplexage, dispositions scriptées, pairing, agents
-  - "Si vous ne retenez qu'une chose de ce talk : la prochaine fois que vous vous connectez en SSH à un serveur, ou que vous lancez un agent, tapez `tmux` en premier."
-  - Tmux is love. Tmux is life.
-  - Sortie de scène possible : `Ctrl-b d`, les slides disparaissent, "Merci !" ; `tmux attach -t talk` pour les Q&R
-  - Merci + Q&R
--->
+Questions: @benjilegnard
